@@ -1,7 +1,7 @@
 require "json"
 require "sinatra/base"
 require "github-trello/version"
-require "github-trello/HTTP"
+require "github-trello/http"
 
 module GithubTrello
   class Server < Sinatra::Base
