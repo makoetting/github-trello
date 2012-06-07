@@ -15,14 +15,15 @@ Vegas::Runner.new(GithubTrello::Server, "trello-web", {
       puts "We've generated an example one for you, but you need to configure it still."
 
       config = <<YAML
-oauth_token: [token]
-api_key: [key]
+oauth_token: de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57
+api_key: 795f889e76e1dcd6bf7c930b5ed3dd97
+board_ids : "4fcfa2f6d4f07f1f5525f100" 
 on_start:
   move_to: [list id]
-  archive: true
+  archive: false
 on_close:
   move_to: [list id]
-  archive: true
+  archive: false
 # See README for deployment usage
 on_deploy:
   move_to:
