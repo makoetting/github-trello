@@ -6,7 +6,7 @@ require "github-trello/http"
 module GithubTrello
   class Server < Sinatra::Base
     post "/posthook" do
-      config, http = self.class.config, self.class.http
+      config, http = self.class.config, GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
 
       payload = JSON.parse(params[:payload])
 
