@@ -10,7 +10,8 @@ module GithubTrello
 
       payload = JSON.parse(params[:payload])
 
-      board_id = "4fcfa2f6d4f07f1f5525f100"
+      #board_id = "4fcfa2f6d4f07f1f5525f100" - testing board
+	  board_id = "4fbbdf3f709c97dd0d11b770"
       unless board_id
         puts "[ERROR] Commit from #{payload["repository"]["name"]} but no board_id entry found in config"
         return
