@@ -1,7 +1,7 @@
 require "json"
 require "sinatra/base"
 require "github-trello/version"
-require "github-trello/http"
+require "github-trello/HTTP"
 
 module GithubTrello
   class Server < Sinatra::Base
@@ -10,7 +10,7 @@ module GithubTrello
 
       payload = JSON.parse(params[:payload])
 
-      board_id = "4fcfa2f6d4f07f1f5525f100"#[payload["repository"]["name"]]
+      board_id = "4fcfa2f6d4f07f1f5525f100"
       unless board_id
         puts "[ERROR] Commit from #{payload["repository"]["name"]} but no board_id entry found in config"
         return

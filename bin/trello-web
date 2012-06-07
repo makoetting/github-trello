@@ -20,10 +20,10 @@ api_key: 795f889e76e1dcd6bf7c930b5ed3dd97
 board_ids : "4fcfa2f6d4f07f1f5525f100" 
 on_start:
   move_to: [list id]
-  archive: false
+  archive: true
 on_close:
   move_to: [list id]
-  archive: false
+  archive: true
 # See README for deployment usage
 on_deploy:
   move_to:
