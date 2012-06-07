@@ -17,11 +17,11 @@ module GithubTrello
       end
 
       branch = payload["ref"].gsub("refs/heads/", "")
-      if config["blacklist_branches"] and config["blacklist_branches"].include?(branch)
-        return
-      elsif config["whitelist_branches"] and !config["whitelist_branches"].include?(branch)
-        return
-      end
+      #if config["blacklist_branches"] and config["blacklist_branches"].include?(branch)
+      #  return
+      #elsif config["whitelist_branches"] and !config["whitelist_branches"].include?(branch)
+      #  return
+      #end
 
       payload["commits"].each do |commit|
         # Figure out the card short id
