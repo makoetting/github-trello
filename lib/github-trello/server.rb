@@ -108,8 +108,8 @@ module GithubTrello
 
     def self.config=(config)
       @config = config
-      #@http = GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
-	  @http = GithubTrello::HTTP.new(ENV["oauth_token"], ENV["api_key"])
+      @http = GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
+	  #@http = GithubTrello::HTTP.new(ENV["oauth_token"], ENV["api_key"])
     end
 
     def self.config; @config end
