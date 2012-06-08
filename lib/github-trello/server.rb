@@ -47,28 +47,28 @@ module GithubTrello
         http.add_comment(results["id"], message)
 
         # Determine the action to take
-        update_config = case match[2].downcase
-          when "case", "card" then config["on_start"]
-          when "close", "fix" then config["on_close"]
-          when "archive" then {:archive => true}
-        end
+        #update_config = case match[2].downcase
+        #  when "case", "card" then config["on_start"]
+        #  when "close", "fix" then config["on_close"]
+        #  when "archive" then {:archive => true}
+        #end
 
-        next unless update_config.is_a?(Hash)
+        #next unless update_config.is_a?(Hash)
 
         # Modify it if needed
-        to_update = {}
+        #to_update = {}
 
-        unless results["idList"] == update_config["move_to"]
-          to_update[:idList] = update_config["move_to"]
-        end
+        #unless results["idList"] == update_config["move_to"]
+        #  to_update[:idList] = update_config["move_to"]
+        #end
 
-        if !results["closed"] and update_config["archive"]
-          to_update[:closed] = true
-        end
+        #if !results["closed"] and update_config["archive"]
+        #  to_update[:closed] = true
+        #end
 
-        unless to_update.empty?
-          http.update_card(results["id"], to_update)
-        end
+        #unless to_update.empty?
+        #  http.update_card(results["id"], to_update)
+        #end
       end
 
       ""
