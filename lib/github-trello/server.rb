@@ -6,6 +6,7 @@ require "github-trello/http"
 module GithubTrello
   class Server < Sinatra::Base
     post "/posthook" do
+	  #Using environment varibles so we can use this on Heroku
       config, http = self.class.config, GithubTrello::HTTP.new(ENV["oauth_token"], ENV["api_key"])
 	  
       payload = JSON.parse(params[:payload])
