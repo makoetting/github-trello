@@ -4,7 +4,6 @@ require "net/https"
 module GithubTrello
   class HTTP
     def initialize(token, api_key)
-      #@token, @api_key = "de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97"
 	  @token, @api_key = token, api_key
       @uri = URI("https://api.trello.com")
     end
