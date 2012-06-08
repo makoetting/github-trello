@@ -6,12 +6,15 @@ require "github-trello/http"
 module GithubTrello
   class Server < Sinatra::Base
     post "/posthook" do
-      config, http = self.class.config, GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
+      #config, http = self.class.config, GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
+	  config, http = self.class.config, self.class.http
 
       payload = JSON.parse(params[:payload])
 
       #board_id = "4fcfa2f6d4f07f1f5525f100" - testing board
 	  board_id = "4fbbdf3f709c97dd0d11b770"
+	  #board_id = config["board_ids"]
+	  
       unless board_id
         puts "[ERROR] Commit from #{payload["repository"]["name"]} but no board_id entry found in config"
         return
@@ -105,7 +108,8 @@ module GithubTrello
 
     def self.config=(config)
       @config = config
-      @http = GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
+      #@http = GithubTrello::HTTP.new("de831ce5f46755ab7eb7bd805f21164fd651f857ea39a361a3ca236b6f518e57", "795f889e76e1dcd6bf7c930b5ed3dd97")
+	  @http = GithubTrello::HTTP.new(ENV["oauth_token"], ENV["api_key"])
     end
 
     def self.config; @config end
