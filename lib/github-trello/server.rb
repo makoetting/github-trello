@@ -10,6 +10,7 @@ module GithubTrello
 	  
       payload = JSON.parse(params[:payload])
 
+      #board_id = "4fcfa2f6d4f07f1f5525f100" - testing board
 	  #board_id = "4fbbdf3f709c97dd0d11b770"
 	  board_id = ENV["board_id"]
 	  
@@ -46,59 +47,59 @@ module GithubTrello
         http.add_comment(results["id"], message)
 
         # Determine the action to take
-        #update_config = case match[2].downcase
-        #  when "case", "card" then config["on_start"]
-        #  when "close", "fix" then config["on_close"]
-        #  when "archive" then {:archive => true}
-        #end
+        update_config = case match[2].downcase
+          when "case", "card" then config["on_start"]
+          when "close", "fix" then config["on_close"]
+          when "archive" then {:archive => true}
+        end
 
-        #next unless update_config.is_a?(Hash)
+        next unless update_config.is_a?(Hash)
 
         # Modify it if needed
-        #to_update = {}
+        to_update = {}
 
-        #unless results["idList"] == update_config["move_to"]
-        #  to_update[:idList] = update_config["move_to"]
-        #end
+        unless results["idList"] == update_config["move_to"]
+          to_update[:idList] = update_config["move_to"]
+        end
 
-        #if !results["closed"] and update_config["archive"]
-        #  to_update[:closed] = true
-        #end
+        if !results["closed"] and update_config["archive"]
+          to_update[:closed] = true
+        end
 
-        #unless to_update.empty?
-        #  http.update_card(results["id"], to_update)
-        #end
-      #end
+        unless to_update.empty?
+          http.update_card(results["id"], to_update)
+        end
+      end
 
       ""
     end
 
-    # post "/deployed/:repo" do
-      # config, http = self.class.config, self.class.http
-      # if !config["on_deploy"]
-        # raise "Deploy triggered without a on_deploy config specified"
-      # elsif !config["on_close"] or !config["on_close"]["move_to"]
-        # raise "Deploy triggered and either on_close config missed or move_to is not set"
-      # end
+    post "/deployed/:repo" do
+      config, http = self.class.config, self.class.http
+      if !config["on_deploy"]
+        raise "Deploy triggered without a on_deploy config specified"
+      elsif !config["on_close"] or !config["on_close"]["move_to"]
+        raise "Deploy triggered and either on_close config missed or move_to is not set"
+      end
 
-      # update_config = config["on_deploy"]
+      update_config = config["on_deploy"]
 
-      # to_update = {}
-      # if update_config["move_to"] and update_config["move_to"][params[:repo]]
-        # to_update[:idList] = update_config["move_to"][params[:repo]]
-      # end
+      to_update = {}
+      if update_config["move_to"] and update_config["move_to"][params[:repo]]
+        to_update[:idList] = update_config["move_to"][params[:repo]]
+      end
 
-      # if update_config["archive"]
-        # to_update[:closed] = true
-      # end
+      if update_config["archive"]
+        to_update[:closed] = true
+      end
 
-      # cards = JSON.parse(http.get_cards(config["on_close"]["move_to"]))
-      # cards.each do |card|
-        # http.update_card(card["id"], to_update)
-      # end
+      cards = JSON.parse(http.get_cards(config["on_close"]["move_to"]))
+      cards.each do |card|
+        http.update_card(card["id"], to_update)
+      end
 
-      # ""
-    # end
+      ""
+    end
 
     get "/" do
       ""
