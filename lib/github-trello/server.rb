@@ -45,7 +45,7 @@ module GithubTrello
 
         http.add_comment(results["id"], message)
 
-        Determine the action to take
+        #Determine the action to take
         update_config = case match[2].downcase
          when "case", "card" then config["on_start"]
          when "close", "fix" then config["on_close"]
@@ -54,7 +54,7 @@ module GithubTrello
 
         next unless update_config.is_a?(Hash)
 
-        Modify it if needed
+        #Modify it if needed
         to_update = {}
 
         unless results["idList"] == update_config["move_to"]
