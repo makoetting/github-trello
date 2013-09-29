@@ -48,6 +48,7 @@ module GithubTrello
         new_list_id = case match[2].downcase
          when "start", "card" then start_list_target_id
          when "close", "fix" then finish_list_target_id
+         when "*" then deployed_list_target_id
         end
 
         next unless !new_list_id.nil?
