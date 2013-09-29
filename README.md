@@ -2,7 +2,7 @@
 Allows you to manage or reference your Trello board through commits to Github. Tag a commit with "Finishes 1234", for example to update that card and move it to a list you specify! 
 
 ##Commands
-Commit messages are searched for `(start|per|finish|fix)e?s? \D?([0-9]+)` to find the card short id. All commands will add the commit message to the card.
+Commit messages are searched for `(start|card|close|fix)e?s? \D?([0-9]+)` to find the card short id. All commands will add the commit message to the card.
 
 - `start` and `per` will move the card to a list specified in configuration by the `start_list_target_id` parameter.
 - `finish` and `fix` will move the card to a list specified in configuration by the `finish_list_target_id` parameter.
@@ -38,7 +38,7 @@ Follow these steps replacing the flagged values with the ones you gathered above
 - clone this repo
 - `cd github-trello`
 - `heroku create`
-- `heroku config:add api_key=<API_KEY> oauth_token=<OATH_TOKEN> board_id=<BOARD_ID> start_list_target_id=<ID> finish_list_target_id=<ID>`
+- `heroku config:add api_key=<API_KEY> oauth_token=<OATH_TOKEN> board_id=<BOARD_ID> start_list_target_id=<ID> finish_list_target_id=<ID> deployed_list_target_id=<ID>`
 - `git push heroku master`
 
 Now the server should be running on Heroku.
