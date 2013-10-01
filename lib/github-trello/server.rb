@@ -75,9 +75,6 @@ module GithubTrello
         start_list_target_id = ENV["start_list_target_id"]
         finish_list_target_id = ENV["finish_list_target_id"]
         deployed_list_target_id = ENV["deployed_list_target_id"]
-        puts deployed_list_target_id
-
-        puts "Received posthook-heroku"
 
       #Set up HTTP Wrapper
         http = GithubTrello::HTTP.new(oauth_token, api_key)
@@ -109,6 +106,7 @@ module GithubTrello
           
           unless to_update.empty?
            response = http.update_card(results["id"], to_update)
+          #Logging upon completion 
            puts response
           end
 
