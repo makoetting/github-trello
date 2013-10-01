@@ -6,7 +6,7 @@ require "github-trello/http"
 module GithubTrello
   class Server < Sinatra::Base
     #Recieves payload
-    post "/posthook" do
+    post "/posthook-github" do
       #Get environment variables for configuration
         oauth_token = ENV["oauth_token"]
         api_key = ENV["api_key"]
@@ -63,6 +63,51 @@ module GithubTrello
          http.update_card(results["id"], to_update)
         end
       end
+      ""
+    end
+
+    #Recieves payload
+    post "/posthook-heroku" do
+      #Get environment variables for configuration
+        oauth_token = ENV["oauth_token"]
+        api_key = ENV["api_key"]
+        board_id = ENV["board_id"]
+        start_list_target_id = ENV["start_list_target_id"]
+        finish_list_target_id = ENV["finish_list_target_id"]
+        deployed_list_target_id = ENV["deployed_list_target_id"]
+
+      #Set up HTTP Wrapper
+        http = GithubTrello::HTTP.new(oauth_token, api_key)
+
+      #Get Message
+        message = params[:git_log]
+
+      #Parse Message and Update Trello
+      # Figure out the card short id
+        match = message.match(/((start|card|close|fix)e?s? \D?([0-9]+))/i)
+        
+        if match and match[3].to_i > 0
+          #Fetch card from Trello
+          results = http.get_card(board_id, match[3].to_i)
+
+          unless results
+            puts "[ERROR] Cannot find card matching ID #{match[3]}"
+            next
+          end
+
+          results = JSON.parse(results)
+
+          #Modify it if needed
+          to_update = {}
+
+          #Modify card by moving to deployed list
+          to_update[:idList] = deployed_list_target_id
+          
+          unless to_update.empty?
+           http.update_card(results["id"], to_update)
+          end
+
+        end
       ""
     end
 
