@@ -76,17 +76,23 @@ module GithubTrello
         finish_list_target_id = ENV["finish_list_target_id"]
         deployed_list_target_id = ENV["deployed_list_target_id"]
 
+        puts "Received posthook-heroku"
+
       #Set up HTTP Wrapper
         http = GithubTrello::HTTP.new(oauth_token, api_key)
 
       #Get Message
         message = params[:git_log]
 
+        puts message
       #Parse Message and Update Trello
       # Figure out the card short id
         match = message.match(/((start|card|close|fix)e?s? \D?([0-9]+))/i)
         
         if match and match[3].to_i > 0
+
+          puts match[3].to_i
+
           #Fetch card from Trello
           results = http.get_card(board_id, match[3].to_i)
 
@@ -96,7 +102,7 @@ module GithubTrello
           end
 
           results = JSON.parse(results)
-
+          puts results["id"]
           #Modify it if needed
           to_update = {}
 
@@ -104,7 +110,8 @@ module GithubTrello
           to_update[:idList] = deployed_list_target_id
           
           unless to_update.empty?
-           http.update_card(results["id"], to_update)
+           response = http.update_card(results["id"], to_update)
+           puts response
           end
 
         end
