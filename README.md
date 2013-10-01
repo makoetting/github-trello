@@ -15,7 +15,7 @@ git commit -m 'Added a class to start 124'
 This will move card #124 to the "doing" list.
 
 ```
-git commit -m 'Added a few more tests per 124'
+git commit -m 'Added a few more tests card 124'
 ```
 This will add a message to card #124 but nothing more (as it is already in "Doing")
 
@@ -44,8 +44,11 @@ Follow these steps replacing the flagged values with the ones you gathered above
 Now the server should be running on Heroku.
 
 ###Set up GitHub
-Simply add you your Heroku app url + "/posthook" as a WebHook url under "Admin" for your repository. Example:
+Simply add you your Heroku app url + "/posthook-github" as a WebHook url under "Admin" for your repository. Example:
 
 `http://crazy-cow-123.herokuapp.com/posthook`
+
+###Set up Heroku Deployment Hook
+Add HTTP Post Heroku Deployment hook and point the hook to Heroku app url + "/posthook-heroku"
 
 *--enjoy*
