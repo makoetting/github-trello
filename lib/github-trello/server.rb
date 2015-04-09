@@ -52,7 +52,7 @@ module GithubTrello
         elsif branch == "staging"
           then new_list_id = staging_list_target_id 
 
-        elseif branch == "production"
+        elsif branch == "production"
           then new_list_id = deployed_list_target_id
 
         else new_list_id = inprogress_list_target_id
