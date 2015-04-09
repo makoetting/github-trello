@@ -11,8 +11,9 @@ module GithubTrello
         oauth_token = ENV["oauth_token"]
         api_key = ENV["api_key"]
         board_id = ENV["board_id"]
-        start_list_target_id = ENV["start_list_target_id"]
-        finish_list_target_id = ENV["finish_list_target_id"]
+        inprogress_list_target_id = ENV["inprogress_list_target_id"]
+        merged_list_target_id = ENV["merged_list_target_id"]
+        staging_list_target_id = ENV["staging_list_target_id"]
         deployed_list_target_id = ENV["deployed_list_target_id"]
 
       #Set up HTTP Wrapper
@@ -45,9 +46,17 @@ module GithubTrello
         http.add_comment(results["id"], message)
 
         #Determine the action to take
-        new_list_id = case match[2].downcase
-         when "start", "card" then start_list_target_id
-         when "close", "fix" then finish_list_target_id
+        if branch == "master"
+          then new_list_id = merged_list_target_id
+
+        elsif branch == "staging"
+          then new_list_id = staging_list_target_id 
+
+        elseif branch == "production"
+          then new_list_id = deployed_list_target_id
+
+        else new_list_id = inprogress_list_target_id
+
         end
 
         next unless !new_list_id.nil?
@@ -63,54 +72,6 @@ module GithubTrello
          http.update_card(results["id"], to_update)
         end
       end
-      ""
-    end
-
-    #Recieves payload
-    post "/posthook-heroku" do
-      #Get environment variables for configuration
-        oauth_token = ENV["oauth_token"]
-        api_key = ENV["api_key"]
-        board_id = ENV["board_id"]
-        start_list_target_id = ENV["start_list_target_id"]
-        finish_list_target_id = ENV["finish_list_target_id"]
-        deployed_list_target_id = ENV["deployed_list_target_id"]
-
-      #Set up HTTP Wrapper
-        http = GithubTrello::HTTP.new(oauth_token, api_key)
-
-      #Get Message
-        message = params[:git_log]
-
-      #Parse Message and Update Trello
-      # Figure out the card short id
-        match = message.match(/((start|card|close|fix)e?s? \D?([0-9]+))/i)
-        
-        if match and match[3].to_i > 0
-
-          #Fetch card from Trello
-          results = http.get_card(board_id, match[3].to_i)
-
-          unless results
-            puts "[ERROR] Cannot find card matching ID #{match[3]}"
-            next
-          end
-
-          results = JSON.parse(results)
-          
-          #Modify it if needed
-          to_update = {}
-
-          #Modify card by moving to deployed list
-          to_update[:idList] = deployed_list_target_id
-          
-          unless to_update.empty?
-           response = http.update_card(results["id"], to_update)
-          #Logging upon completion 
-           puts response
-          end
-
-        end
       ""
     end
 
