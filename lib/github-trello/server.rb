@@ -45,19 +45,19 @@ module GithubTrello
 
         http.add_comment(results["id"], message)
 
-        #Determine the action to take
-        #if branch == "master"
-         # then new_list_id = merged_list_target_id
+        Determine the action to take
+        if branch == "master"
+          then new_list_id = merged_list_target_id
 
-        #elsif branch == "staging"
-         # then new_list_id = staging_list_target_id 
+        elsif branch == "staging"
+          then new_list_id = staging_list_target_id 
 
-        #elsif branch == "production"
-         # then new_list_id = deployed_list_target_id
+        elsif branch == "production"
+          then new_list_id = deployed_list_target_id
 
-        #else new_list_id = inprogress_list_target_id
+        else new_list_id = inprogress_list_target_id
 
-        #end
+        end
 
         next unless !new_list_id.nil?
         
