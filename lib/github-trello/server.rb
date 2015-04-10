@@ -45,7 +45,7 @@ module GithubTrello
 
         http.add_comment(results["id"], message)
 
-        Determine the action to take
+        #Determine the action to take
         if branch.include? "master"
           then new_list_id = merged_list_target_id
 
