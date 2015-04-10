@@ -49,10 +49,10 @@ module GithubTrello
         if branch.include? "master"
           then new_list_id = merged_list_target_id
 
-        elsif branch == "staging"
+        elsif branch.include? "staging"
           then new_list_id = staging_list_target_id 
 
-        elsif branch == "production"
+        elsif branch.include? "production"
           then new_list_id = deployed_list_target_id
 
         else new_list_id = inprogress_list_target_id
