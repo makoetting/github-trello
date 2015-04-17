@@ -49,7 +49,7 @@ Create a Ruby site on Warpspeed.io to run the github-trello code. Use the Nginx 
 
 - Environmental Variables:
 
-	'api_key=[API_KEY]` 
+	`api_key=[API_KEY]`
 	`oauth_token=[OATH_TOKEN]` 
 	`board_id=[BOARD_ID]` 
 	`inprogress_list_target_id=[ID]` 
