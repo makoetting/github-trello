@@ -48,14 +48,13 @@ This will move card #124 to the "production" list. Like staging, a deploy hook w
 Create a Ruby site on Warpspeed.io to run the github-trello code. Use the Nginx config to set the environmental variables according to the `passenger_env_var [variable] [value]` specification
 
 - Environmental Variables:
-
-	`api_key=[API_KEY]`
-	`oauth_token=[OATH_TOKEN]` 
-	`board_id=[BOARD_ID]` 
-	`inprogress_list_target_id=[ID]` 
-	`merged_list_target_id=[ID]` 
-	`staging_list_target_id=[ID]`
-	`production_list_target_id=[ID]`
+	* `api_key=[API_KEY]`
+	* `oauth_token=[OATH_TOKEN]` 
+	* `board_id=[BOARD_ID]` 
+	* `inprogress_list_target_id=[ID]` 
+	* `merged_list_target_id=[ID]` 
+	* `staging_list_target_id=[ID]`
+	* `production_list_target_id=[ID]`
 
 
 ###Set up GitHub
