@@ -54,7 +54,7 @@ Create a Ruby site on Warpspeed.io to run the github-trello code. Use the Nginx 
 	* `inprogress_list_target_id=[ID]` 
 	* `merged_list_target_id=[ID]` 
 	* `staging_list_target_id=[ID]`
-	* `production_list_target_id=[ID]`
+	* `deployed_list_target_id=[ID]`
 
 
 ###Set up GitHub
